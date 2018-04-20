@@ -7,6 +7,10 @@ Ansible automation for provisioning corporate site
 
 ```pipenv shell```
 
+## List connections
+
+```ansible -i hosts all --list-hosts```
+
 ## Test connection with Digital Ocean Droplet
 
-```ansible all -u root -m ping -I hosts```
+```ansible all -u root -m ping -i hosts```

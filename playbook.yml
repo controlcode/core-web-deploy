@@ -1,0 +1,18 @@
+
+- hosts: all
+  remote_user: root
+  tasks:
+  - name: Add deploy user and add sudoers
+    user:
+      name: deploy
+      password:
+      groups: sudo
+      append: true
+      shell: /bin/bash
+      update_password: on_create
+
+  - name: Add public key for deploy user
+    authorized_key:
+      user: deploy
+      state: present
+      key: "{{ lookup('file', '/Users/weekr/.ssh/id_rsa.pub') }}"

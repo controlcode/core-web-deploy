@@ -1,18 +1,81 @@
-
+---
 - hosts: all
   remote_user: root
   tasks:
   - name: Add deploy user and add sudoers
     user:
       name: deploy
-      password:
+      password: '$6$w9Gs6F9UpRqdJOIv$owU5e4y8Uh/wafErHgu.Qo5kfJIvIAzI7ppZQ61JswxJ4L2hpH4.SDvOUaIWtE980thnryvAPU0/CgFyWS/oX.' 
       groups: sudo
       append: true
       shell: /bin/bash
-      update_password: on_create
+      update_password: always
 
   - name: Add public key for deploy user
     authorized_key:
       user: deploy
       state: present
       key: "{{ lookup('file', '/Users/weekr/.ssh/id_rsa.pub') }}"
+
+- hosts: all
+  remote_user: deploy
+  gather_facts: false
+
+  vars:
+    db_name: cc
+    db_user: django
+    db_password: secret
+
+  tasks:
+  - name: Update apt cache
+    apt: update_cache=yes
+    become: true
+
+  - name: Install Nginx
+    apt: pkg=nginx state=present update_cache=true
+    become: true
+
+  - name: Install PostgreSQL
+    apt: name={{ item }} state=present update_cache=true
+    become: true
+    with_items:
+       - postgresql
+       - postgresql-contrib
+       - libpq-dev
+       - python3-psycopg2
+    tags:
+      - packages
+ 
+  - name: Ensure PostgreSQL is running
+    service: name=postgresql state=started enabled=yes
+
+  - name: Create postgres user
+    postgresql_user:
+      name: "{{ db_user }}"
+      password: "{{ db_password }}"
+      encrypted: True
+    remote_user: root
+    become: yes
+    become_user: postgres
+
+  - name: Ensure database is created
+    postgresql_db:
+      name: "{{db_name }}"
+      owner: "{{ db_user }}"
+      encoding: UTF8
+    remote_user: root
+    become: yes
+    become_user: postgres 
+
+  - name: Setup nginx conf
+    template:
+      src=nginx.conf.tpl
+      dest=/etc/nginx/nginx.conf
+    notify: restart nginx
+    become: true
+
+  handlers:
+    - name: restart nginx
+      service:
+        name=nginx
+        state=restarted

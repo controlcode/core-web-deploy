@@ -14,3 +14,7 @@ Ansible automation for provisioning corporate site
 ## Test connection with Digital Ocean Droplet
 
 ```ansible all -u root -m ping -i hosts```
+
+## Run the Ansible script
+
+```ansible-playbook playbook.yml --ask-become-pass```

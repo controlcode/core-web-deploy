@@ -9,6 +9,7 @@ name = "pypi"
 
 ansible = "*"
 passlib = "*"
+gunicorn = "*"
 
 [dev-packages]
 

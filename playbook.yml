@@ -31,6 +31,12 @@
     apt: update_cache=yes
     become: true
 
+  - name: Install base packages
+    apt: pkg={{item}} state=present
+    with_items:
+      - git
+    become: true
+
   - name: Install Nginx
     apt: pkg=nginx state=present update_cache=true
     become: true
@@ -79,3 +85,4 @@
       service:
         name=nginx
         state=restarted
+      become: true

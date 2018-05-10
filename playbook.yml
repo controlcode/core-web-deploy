@@ -27,9 +27,6 @@
     db_password: secret
 
   tasks:
-  - name: Update apt cache
-    apt: update_cache=yes
-    become: true
 
   - name: Install base packages
     apt: pkg={{item}} state=present
@@ -37,6 +34,18 @@
       - git
       - python3-pip
     become: true
+
+  - name: Update apt cache
+    apt: update_cache=yes
+    become: true
+
+  - name: Update all packages to the latest version
+    apt: 
+      name: "*"
+      state: latest
+      force_apt_get: True
+    become: true
+
 
   - name: Install Python packages
     pip: name={{item}} state=present executable=pip3

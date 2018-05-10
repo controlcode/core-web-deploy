@@ -38,6 +38,12 @@
       - python3-pip
     become: true
 
+  - name: Install Python packages
+    pip: name={{item}} state=present executable=pip3
+    with_items:
+      -  django
+    become: true
+
   - name: Install Nginx
     apt: pkg=nginx state=present update_cache=true
     become: true

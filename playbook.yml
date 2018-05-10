@@ -81,6 +81,11 @@
     notify: restart nginx
     become: true
 
+  - name: Deploy web repository
+    git:
+      repo: https://github.com/controlcode/core-web-django.git 
+      dest: /home/deploy/site
+
   handlers:
     - name: restart nginx
       service:

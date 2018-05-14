@@ -33,6 +33,7 @@
     with_items:
       - git
       - python3-pip
+      - certbot
     become: true
 
   - name: Update apt cache

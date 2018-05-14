@@ -96,10 +96,30 @@
     notify: restart nginx
     become: true
 
-  - name: Deploy web repository
-    git:
-      repo: https://github.com/controlcode/core-web-django.git 
-      dest: /home/deploy/site
+  - name: Set firewall default policy
+    ufw: state=enabled policy=reject
+    become: true
+
+  - name: Allow ssh 
+    ufw: rule=allow port=22 #Limit access to a specific host: src=192.168.1.6 or specific network: src=192.168.1.0/24
+    become: true
+
+  - name: Allow Nginx 
+    ufw: rule=allow name='Nginx Full' 
+    become: true
+
+#  - name: Deploy web repository
+#    git:
+#      repo: https://github.com/controlcode/core-web-django.git 
+#      dest: /home/deploy/site
+
+#  - name: Django collect static files
+#    django_manage:
+#      command: collectstatic
+#      app_path: /home/deploy/site/cc
+#      pythonpath: /usr/bin/python3
+#      settings: /home/deploy/site/cc/cc/sttings.py
+#    become: true
 
   handlers:
     - name: restart nginx

@@ -16,7 +16,7 @@ http {
 
         location / {
             include proxy_params;
-            proxy_pass http://unix:/home/deploy/proj/cc.sock;
+            proxy_pass http://unix:/home/deploy/site/cc.sock;
         }
 
         location /static/ {

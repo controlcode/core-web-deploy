@@ -1,0 +1,11 @@
+# Ansible project variables
+
+local_ssh_public_keys: ~/.ssh/id_rsa.pub
+ssh_port: 22
+
+deploy_user: deploy
+deploypassword: secret
+
+db_name: cc
+db_user: django
+db_password: secret

@@ -21,10 +21,8 @@
   remote_user: deploy
   gather_facts: false
 
-  vars:
-    db_name: cc
-    db_user: django
-    db_password: secret
+  vars_files:
+  - vars/project.yml
 
   tasks:
 
@@ -107,6 +105,10 @@
 
   - name: Allow Nginx 
     ufw: rule=allow name='Nginx Full' 
+    become: true
+
+  - name: Allow 80
+    ufw: rule=allow name='OpenSSH'
     become: true
 
 #  - name: Deploy web repository

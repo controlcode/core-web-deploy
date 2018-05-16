@@ -96,6 +96,20 @@
     notify: restart nginx
     become: true
 
+  - name: Copy Nginx server block
+    template:
+      src=controlcode.uk
+      dest=/etc/nginx/sites-available/controlcode.uk
+    notify: restart nginx
+    become: true
+
+  - name: Nginx Enable Controlcode site
+    file:
+      src: "/etc/nginx/sites-available/controlcode.uk"
+      dest: "/etc/nginx/sites-enabled/controlcode.uk"
+      state: link
+    become: true
+
   - name: Set firewall default policy
     ufw: state=enabled policy=reject
     become: true

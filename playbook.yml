@@ -32,6 +32,7 @@
       - git
       - python3-pip
       - certbot
+      - python-certbot-nginx
     become: true
 
   - name: Update apt cache

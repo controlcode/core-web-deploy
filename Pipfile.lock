@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "a31b4cd5bdca3bd905a075481abeca1e53c70d37878513209882db53a0eaaf9a"
+            "sha256": "4479319fbee93bb23f9785ee5526f4244497980e4a738058b43210724b66e095"
         },
         "host-environment-markers": {
             "implementation_name": "cpython",
@@ -17,7 +17,9 @@
             "sys_platform": "darwin"
         },
         "pipfile-spec": 6,
-        "requires": {},
+        "requires": {
+            "python_version": "3.6"
+        },
         "sources": [
             {
                 "name": "pypi",
@@ -104,6 +106,7 @@
                 "sha256:3c85641778460581c42924384f5e68076d724ceac0f267d66c757f7535069c93",
                 "sha256:e90f17980e6ab0f3c2f3730e56d1fe9bcba1891eeea58966e89d352492cc74f4"
             ],
+            "markers": "platform_python_implementation != 'PyPy'",
             "version": "==1.11.5"
         },
         "cowsay": {

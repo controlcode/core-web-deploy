@@ -11,7 +11,7 @@ http {
 
     server {
         listen 80;
-        server_name 139.59.164.167;
+        server_name controlcode.uk www.controlcode.uk;
         error_log /home/deploy/error.log debug;
 
         location / {

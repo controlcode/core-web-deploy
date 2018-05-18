@@ -1,5 +1,5 @@
 # core-web-deploy
-Ansible automation for provisioning corporate site
+Ansible automation for provisioning core django site
 
 ## Setup virtual environment
 

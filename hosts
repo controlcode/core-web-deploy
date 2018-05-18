@@ -1,8 +1,8 @@
-ocean-cc1 ansible_host=139.59.164.167
+ocean-cc-12 ansible_host=167.99.207.78
 
 [servers]
-ocean-cc1
+ocean-cc-12
 
 [servers:vars]
-ansible_private_key_file='/Users/weekr/.ssh/id_rsa'
+ansible_private_key_file='/root/.ssh/id_rsa'
 ansible_python_interpreter=/usr/bin/python3

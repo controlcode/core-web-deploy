@@ -15,7 +15,7 @@
     authorized_key:
       user: deploy
       state: present
-      key: "{{ lookup('file', '/Users/weekr/.ssh/id_rsa.pub') }}"
+      key: "{{ lookup('file', '/root/.ssh/id_rsa.pub') }}"
 
 - hosts: all
   remote_user: deploy
@@ -25,15 +25,6 @@
   - vars/project.yml
 
   tasks:
-
-  - name: Install base packages
-    apt: pkg={{item}} state=present
-    with_items:
-      - git
-      - python3-pip
-      - certbot
-      - python-certbot-nginx
-    become: true
 
   - name: Update apt cache
     apt: update_cache=yes
@@ -46,6 +37,14 @@
       force_apt_get: True
     become: true
 
+  - name: Install base packages
+    apt: pkg={{item}} state=present
+    with_items:
+      - git
+      - python3-pip
+      - certbot
+      - python-certbot-nginx
+    become: true
 
   - name: Install Python packages
     pip: name={{item}} state=present executable=pip3
